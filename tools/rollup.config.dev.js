@@ -7,6 +7,7 @@ export default {
 entry: common.entry,
   dest: common.dest,
   format: common.format,
+  moduleName:common.moduleName,
   plugins: [
     serve({
     	port:3000

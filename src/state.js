@@ -1,10 +1,13 @@
 var state = {
-    render: render
+    render:function (model_) {
+        representation(model_)
+        nextAction(model_);
+    }
 };
 
 export default state;
 
-var _state_matchers = [{
+var state_matchers = [{
     id: 'error',
     match: function (model_) {
         return model_.error;
@@ -16,22 +19,13 @@ var _state_matchers = [{
     }
 }];
 
-function render(model_) {
 
-    update_representation(model_)
-    trigger_nextaction(model_);
+function representation(model_) {
+    var _found = state_matchers.find(function (matcher_) {
+        return matcher_.match(model_);
+    });
 
-    function update_representation(model_, display) {
-        var _matched_state = _state_matchers.find(function (matcher_) {
-            return matcher_.match(model_);
-        });
-        _matched_state = _matched_state || 'internal_error';
+    state.display(state.views[_found ? _found.id : 'internal_error'](model_));
+}
 
-        _representation = state.view[_matched_state.id](model_);
-
-        display(_representation);
-    }
-    
-    function trigger_nextaction(model_) {}
-
-};
+function nextAction(model_) {}

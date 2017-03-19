@@ -1,24 +1,24 @@
 var model = {
-    count: 0,
+    counter: 0,
     error: false,
     present: present
 };
 
 export default model;
 
-var _model_actionsAppliers = {
-    'add': function(model_) { model_.count += 1; },
+var effector = {
+    'add': function(model_) { model_.counter += 1; },
     'error': function(model_) { model_.error = true; },
-    'sub': function(model_) { model_.count += 1; }
+    'sub': function(model_) { model_.counter -= 1; }
 };
 
-function present(submittedActionData_, render) {
+function present(submittedActionData_) {
     var _sad = submittedActionData_ || 'add';
 
-    if (!_sad in _model_apply) {
+    if (!_sad in effector) {
         _sad = 'error';
     }
 
-    _model_actionsAppliers(model)[_sad];
-    render(model);
+    effector[_sad](model);
+    model.state.render(model);
 }
