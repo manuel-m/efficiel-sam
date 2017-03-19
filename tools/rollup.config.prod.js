@@ -1,3 +1,4 @@
+import buble from 'rollup-plugin-buble';
 import common from './rollup.config.common.js'
 
 export default {
@@ -5,4 +6,9 @@ export default {
   dest: common.dest,
   format: common.format,
   moduleName:common.moduleName,
+  plugins: [
+        buble({
+            jsx: 'createElement'
+        })
+    ]
 }

@@ -5,7 +5,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import replace from 'rollup-plugin-replace';
 
 export default {
-    entry: 'src/index.js',
+    entry: 'src/inferno-renderer.js',
     external: [],
     moduleName: 'inferno-renderer',
     plugins: [
@@ -14,7 +14,7 @@ export default {
         }),
         buble({
             jsx: 'createElement'
-        }),        
+        }),
         // uglify(),
         nodeResolve({
             jsnext: true,
@@ -22,6 +22,7 @@ export default {
         }),
         commonjs()
     ],
-    format: 'iife',
-    dest: 'dist/bundle.js'
+    // format: 'iife',
+    format: 'es',
+    dest: 'build/inferno-renderer.js'
 };
